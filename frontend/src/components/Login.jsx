@@ -5,19 +5,33 @@ import MyTextField from './forms/MyTextField';
 import MyPassField from './forms/MyPassField';
 import MyButton from './forms/MyButton';
 import { Link } from 'react-router-dom';
-import { useForm } from 'react-hook-form'; // Importar useForm
+import { useForm } from 'react-hook-form';
+import Axios from './Axios';
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
-    const { handleSubmit, control } = useForm(); // Usar useForm para manejar el control
+    const { handleSubmit, control } = useForm();
+    const navigate = useNavigate();
 
-    // Función de envío del formulario (por ejemplo, hacer la autenticación)
-    const onSubmit = (data) => {
-        console.log(data); // Aquí harías la llamada para autenticar al usuario
-    };
+    const submission = (data) => {
+        Axios.post('login/', {
+            email: data.email,
+            password: data.password,
+        })
+            .then((response) => {
+                console.log(response);
+                localStorage.setItem('Token', response.data.token)
+                navigate('/home');
+            })
+            .catch((error) =>{
+                console.error("Error during login", error);
+                
+            })
+    }
 
     return (
         <div className="myBackground">
-            <form onSubmit={handleSubmit(onSubmit)}> {/* Agregar onSubmit */}
+            <form onSubmit={handleSubmit(submission)}> {/* Agregar onSubmit */}
                 <Box className="whitheBox">
                     <Box className="itemBox">
                         <Box className="title">Login for Auth App</Box>
@@ -25,22 +39,25 @@ const Login = () => {
 
                     <Box className="itemBox">
                         <MyTextField
-                            name="email"  // Asignar un nombre único
-                            label="Email"
+                            name={"email"}  // Asignar un nombre único
+                            label={"Email"}
                             control={control}  // Pasar control de react-hook-form
                         />
                     </Box>
 
                     <Box className="itemBox">
                         <MyPassField
-                            name="password"  // Asignar un nombre único
-                            label="Password"
+                            name={"password"}  // Asignar un nombre único
+                            label={"Password"}
                             control={control}  // Pasar control de react-hook-form
                         />
                     </Box>
 
                     <Box className="itemBox">
-                        <MyButton label="Login" />
+                        <MyButton
+                            label={"Login"}
+                            type={"sumbit"} />
+
                     </Box>
 
                     <Box className="itemBox">

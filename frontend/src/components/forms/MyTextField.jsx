@@ -14,21 +14,23 @@ export default function MyTextField(props) {
         <Controller
             name={name} // nombre del campo (por ejemplo, "email")
             control={control} // objeto de control de react-hook-form
-            defaultValue="" // Establece un valor inicial vacío para evitar que el campo sea no controlado
+            defaultValue="" 
             render={({
                 field: { onChange, value },
                 fieldState: { error },
+                // formState,
             }) => (
                 <TextField
-                    id={name}
+                    id="outlined-basic"
                     label={label}
-                    value={value || ''}  // Asegura que siempre haya un valor, incluso si es undefined
+                    
                     onChange={onChange}
                     error={!!error}
                     helperText={error ? error.message : ''}
                     variant="outlined"
-                    className="MyForm"
-                    fullWidth
+                    className={"MyForm"}
+                    value={value || ''}
+
                 />
             )}
         />

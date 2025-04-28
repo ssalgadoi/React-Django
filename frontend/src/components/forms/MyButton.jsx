@@ -9,7 +9,7 @@ export default function MyButton( props ) {
             <Button
                 type={type} 
                 variant="contained"
-                className='MyButton' >
+                className={'MyButton'} >
                 { label }
             </Button>
 

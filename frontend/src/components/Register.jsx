@@ -11,28 +11,21 @@ import { useNavigate } from 'react-router-dom'
 
 const Register = () => {
     const navigate = useNavigate();
-    const { handleSubmit, control, getValues } = useForm();
+    const { handleSubmit, control } = useForm();
 
-    const submission = () => {
-        const { email, password } = getValues();
-        
+    const submission = (data) => {
         Axios.post('register/', {
-            email: email,
-            password: password,
+            email: data.email,
+            password: data.password,
         })
         .then(() => {
-            // Aquí se redirige al home, que usualmente es '/'
             navigate('/');
         })
-        .catch((error) => {
-            // Puedes manejar errores aquí si es necesario
-            console.error('Error al registrarse:', error);
-        });
     }
 
     return (
         <div className={"myBackground"}>
-            <form onSubmit={handleSubmit(submission)}>  
+            <form onSubmit={handleSubmit(submission)}>
                 <Box className={"whitheBox"}>
                     <Box className={"itemBox"}>
                         <Box className={"title"}>
@@ -67,6 +60,7 @@ const Register = () => {
                         <MyButton
                             type={"submit"}
                             label={"Register"}
+                           
                         />
                     </Box>
                     <Box className={"itemBox"}>

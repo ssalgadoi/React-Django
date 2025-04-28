@@ -26,28 +26,28 @@ export default function MyPassField(props) {
 
   return (
     <Controller
+      defaultValue="" 
       name={name} // nombre del campo (por ejemplo, "password")
       control={control} // objeto de control de react-hook-form
-      defaultValue="" // Establecer valor predeterminado vacío para evitar que el campo sea no controlado
       render={({
         field: { onChange, value },
         fieldState: { error },
+        // formState,
       }) => (
         <div>
           <FormControl variant="outlined" className={"MyForm"}>
             <InputLabel htmlFor="outlined-adornment-password">{label}</InputLabel>
             <OutlinedInput
               id="outlined-adornment-password"
-              onChange={onChange}
-              value={value || ''}  // Asegura que el valor nunca sea undefined
-              error={!!error}
               type={showPassword ? 'text' : 'password'}
+              onChange={onChange}
+              value={value || ''}  
+              error={!!error}
+              
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
-                    aria-label={
-                      showPassword ? 'hide the password' : 'display the password'
-                    }
+                    aria-label={showPassword ? 'hide the password' : 'display the password'}
                     onClick={handleClickShowPassword}
                     onMouseDown={handleMouseDownPassword}
                     onMouseUp={handleMouseUpPassword}
